@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Exit Ticket Doors</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2b2118;--or:#e9893f;--orl:#f6c9a0;--card:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100vh;font-family:Poppins,"Segoe UI",Arial,sans-serif;color:var(--ink);background:#fff;position:relative;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;background:
+linear-gradient(135deg,rgba(236,150,80,.26) 0 22%,transparent 22%),
+linear-gradient(315deg,rgba(236,150,80,.22) 0 20%,transparent 20%),
+linear-gradient(225deg,rgba(236,150,80,.12) 0 14%,transparent 14%),#fff}
+.bg::before,.bg::after{content:"";position:absolute;background:rgba(236,150,80,.13)}
+.bg::before{width:34vmax;height:34vmax;left:-8vmax;bottom:12%;clip-path:polygon(0 100%,100% 100%,0 0);transform:rotate(8deg);opacity:.7}
+.bg::after{width:26vmax;height:26vmax;right:6%;top:30%;clip-path:polygon(50% 0,100% 100%,0 100%);transform:rotate(190deg);opacity:.6}
+#home{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:14px;z-index:9;width:52px;height:52px;border-radius:50%;border:3px solid var(--ink);background:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+#home:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+#home svg{width:26px;height:26px}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+main{max-width:1120px;margin:0 auto;padding:24px 20px 40px}
+h1{font-weight:800;font-size:clamp(24px,4vw,40px);line-height:1.1;text-align:center;margin:4px 70px 22px;letter-spacing:-.01em}
+.grid{display:grid;grid-template-columns:repeat(8,1fr);gap:20px 12px}
+.cell{background:none;border:0;padding:0;cursor:pointer;font:inherit;color:inherit;text-align:center}
+.cell:hover .dw{transform:translateY(-6px)}
+.dw{position:relative;aspect-ratio:3/5;perspective:800px;background:#fff0cc;transition:transform .2s}
+.door{position:absolute;inset:0;background:var(--c);transform-origin:left center;transition:transform .8s cubic-bezier(.5,0,.2,1)}
+.door::before{content:"";position:absolute;inset:38% 17% 11% 17%;border:3px solid rgba(255,255,255,.5);border-radius:6px}
+.door::after{content:"";position:absolute;right:11%;top:60%;width:10%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 0 2px rgba(0,0,0,.18)}
+.win{position:absolute;top:11%;left:28%;right:28%;height:19%;background:rgba(255,255,255,.75);border-radius:50% 50% 5px 5px;box-shadow:inset 0 0 0 3px rgba(0,0,0,.12)}
+.arch{border-radius:50% 50% 0 0/26% 26% 0 0}
+.rect{border-radius:5px 5px 0 0}
+.gable{clip-path:polygon(50% 0,100% 15%,100% 100%,0 100%,0 15%)}
+.knock{animation:kn .5s}
+.open .door{transform:rotateY(-72deg)}
+@keyframes kn{0%,100%{transform:none}15%{transform:translateX(-5px) rotate(-1.5deg)}35%{transform:translateX(5px) rotate(1.5deg)}55%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.line{height:8px;border-radius:4px;background:var(--or);margin-top:0}
+.cell b{display:block;font-weight:800;font-size:18px;margin-top:4px}
+.slide{display:grid;grid-template-columns:minmax(200px,34%) 1fr;gap:34px;align-items:end;margin-top:56px}
+.left{text-align:center}
+.num{display:block;font-family:Poppins,sans-serif;font-weight:800;font-size:clamp(40px,7vw,76px);line-height:1;margin-bottom:10px}
+.left .dw{max-width:300px;margin:0 auto}
+.box{background:var(--card);border:4px solid var(--ink);padding:28px 30px;box-shadow:8px 8px 0 var(--or);min-height:60%}
+.box h2{margin:0 0 12px;font-weight:800;font-size:clamp(26px,4vw,40px);line-height:1.1}
+.box p.d{margin:0 0 20px;font-size:17px;line-height:1.5}
+#g{border-top:3px dashed var(--orl);padding-top:20px}
+.dots{display:flex;gap:8px;margin-bottom:14px}
+.dots u{width:34px;height:8px;border-radius:4px;background:var(--orl)}.dots u.on{background:var(--or)}
+.q{font-size:20px;font-weight:600;margin:0 0 14px;line-height:1.4}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button.o,.opts button,.mt button{font:inherit;font-size:16px;padding:12px 14px;border:3px solid var(--ink);background:#fff;border-radius:12px;cursor:pointer;text-align:center;transition:background .15s}
+.opts button:hover:not(:disabled),.mt button:hover{background:#fff1e0}
+.ok{background:#bfe8bf!important;border-color:#2e7d32!important}
+.no{background:#f7c2bd!important;border-color:#c62828!important;animation:kn .4s}
+.sel{background:#ffe0b8!important}
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:14px}.mt div{display:grid;gap:10px;align-content:start}
+.mt button{font-size:15px}.mt button.ok{pointer-events:none}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.tiles span{width:46px;height:52px;display:grid;place-items:center;background:var(--or);color:#fff;font-weight:800;font-size:26px;border-radius:10px;text-transform:uppercase}
+input{font:inherit;font-size:22px;padding:10px 14px;border:3px solid var(--ink);border-radius:12px;width:min(100%,320px);text-transform:lowercase}
+.row{display:flex;gap:12px;align-items:center}
+.ic{width:56px;height:56px;border-radius:50%;border:3px solid var(--ink);background:var(--or);color:#fff;font-size:24px;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.ic.alt{background:#fff;color:var(--ink)}
+.ic:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.big{font-size:clamp(24px,4vw,36px);font-weight:800;margin:0 0 12px;line-height:1.2}
+.clock{font-size:64px;font-weight:800;line-height:1;margin-bottom:14px;font-variant-numeric:tabular-nums}
+.clock.out{color:#c62828;animation:kn .5s 3}
+.end{font-size:56px;color:var(--or);letter-spacing:.1em;margin-bottom:12px}
+@media(max-width:860px){.grid{grid-template-columns:repeat(4,1fr)}.slide{grid-template-columns:1fr;margin-top:40px}.left .dw{max-width:170px}.opts,.mt{grid-template-columns:1fr}.mt{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+#info{position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:9;width:42px;height:42px;border-radius:50%;border:3px solid var(--ink);background:#fff;font:800 20px Poppins,sans-serif;color:var(--ink);cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+#ov{position:fixed;inset:0;z-index:20;background:rgba(43,33,24,.45);display:grid;place-items:center;padding:20px}#ov[hidden]{display:none}
+.pop{position:relative;background:#fff;border:4px solid var(--ink);box-shadow:8px 8px 0 var(--or);padding:30px 32px 14px;max-width:440px}
+.pop p{margin:0 0 14px;font-size:16px;line-height:1.5}.pop p:first-of-type{font-weight:800;font-size:20px}
+#x{position:absolute;top:4px;right:10px;border:0;background:none;font-size:30px;cursor:pointer;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<button id="home" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="#2b2118" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
+<button id="info" aria-label="Info">i</button>
+<div id="ov" hidden><div class="pop"><button id="x" aria-label="Close">×</button><p>Game created by Sergio Rey-Godoy</p><p>sreygod509@g.educaand.es</p><p>Click a door to open it, read the activity and talk with your partner. Press ↻ for a new prompt, ▶ to start the timer and the house to go back to the doors.</p></div></div>
+<main id="app"></main>
+<script>
+const R=[
+["Would You Rather: Endgame","Choose one option, then explain your choice to your partner.",["Would you rather live without music or without films?","Would you rather fly or be invisible?","Would you rather always be 20 minutes early or 10 minutes late?"]],
+["The Truth Is Out There","Write three sentences about the topic: two true, one false. Then the class guesses the lie.",["your last weekend","your childhood","your hobbies"],120],
+["Cast Away","Choose three things to take with you. Explain why they are essential.",["a desert island","a month on Mars","a cabin in the snow"]],
+["Hot Take Tuesday","Do you agree or disagree? Defend your opinion with reasons and examples.",["Homework should be banned.","Pineapple belongs on pizza.","Social media does more harm than good."]],
+["Shark Tank, Be Kind","Invent a product and write a short pitch to convince the class to invest.",["an alarm clock for people who hate mornings","a backpack for students with too much homework","shoes that never get dirty"],120],
+["Game of Phones","Discuss the question in pairs, then share your best ideas with the class.",["How would your life change without your phone for a week?","At what age should children get a phone?","Is it rude to use your phone while eating with others?"]],
+["Friends: The One Where You Share","Tell your partner a short story. Give details and say how you felt.",["your happiest childhood memory","a time you were really embarrassed","a trip you will never forget"]],
+["Breaking Bad Habits","Talk about habits: what they are, why they matter and how to change them.",["A bad habit you would like to break","A good habit you are proud of","A habit in other people that annoys you"]],
+["Fantastic Beasts and Where to Find Them","Invent a creature. Write its name, where it lives, what it eats and its special power.",["a creature that lives in a big city","a creature from the deep sea","a creature that lives in a school"],120],
+["The Hungry Games","Talk about food and describe it in as much detail as you can.",["Describe the best meal you have ever eaten.","What food will you never eat again, and why?","Explain a typical dish from your region to a tourist."]],
+["Inside Out","Tell your partner about a time you felt this emotion. What happened?",["proud","nervous","furious"]],
+["Mission: Impossible?","Write a plan with at least five steps. Then compare it with your partner’s plan.",["a perfect surprise party for a friend","a one-day trip to Madrid with only 50 euros","a week without throwing anything away"],120],
+["Back to the Future Me","Discuss your predictions and give reasons for them.",["Where do you see yourself in ten years?","What will schools be like in 2050?","Which technology will change our lives the most?"]],
+["Spill the Tea","Share an unpopular opinion about the topic. Does your partner agree?",["food","school","social media"]],
+["Sell Me This Pen","Persuade your partner to buy the object. Write your best arguments first.",["your pencil case","a classroom chair","a bottle of water"],120],
+["Fortune Cookie Monster","Write a fortune-cookie message and read it aloud to the class.",["for a friend’s next week","for your teacher","for your future self"],120],
+["Doctor Who? Doctor You!","A friend has a problem. Give them advice using at least three suggestions.",["“I have a big exam tomorrow and I haven’t studied.”","“My best friend ignores me at school.”","“I can’t sleep at night.”"]],
+["Spotify Wrapped Up","Talk about music with your partner and explain your choices.",["Your favourite song right now and why","A song that reminds you of someone","A concert you would love to attend"]],
+["Netflix and Chill-Out","Recommend or criticise it without spoilers. Convince your partner!",["a series everybody should watch","a film you really hated","a film you could watch a hundred times"]],
+["Stranger Things Have Happened","Tell a story with a beginning, a middle and an end. Your partner asks two questions.",["a strange coincidence","something unbelievable that happened to you","a time you got lost"]],
+["Extreme Makeover: School Edition","You are the headteacher. Write three changes you would make and why. Then compare them.",["the timetable","the school building","the rules"],120],
+["My Hero Academia","Describe the person in detail and say why they inspire you.",["someone you admire","someone in your family who inspires you","a historical figure you would like to meet"]],
+["Black Mirror, Mirror on the Wall","Discuss the question. Give advantages, disadvantages and your final opinion.",["Is artificial intelligence a danger or a help?","Would you accept a chip in your brain?","Should robots do all the jobs?"]],
+["Wish Upon a Star Wars","Explain your wishes to your partner. Be creative, but give reasons!",["three wishes for yourself","three wishes for the world","a wish you would never make"]]
+];
+const C=["#e8607f","#f2a33a","#3d7fd9","#47b88a","#9b6fd1","#e8863a","#2aa7b8","#d9468f","#8bbf3f","#c9a227","#e05a4f","#5b6fd6","#f28fb0","#6cc3e8","#b5a642","#7a4fb0","#3aa86a","#ef7d57","#4a9fd4","#cf5ba6","#a3c53a","#e0a030","#38b2a3","#8a6bd6"],S=["arch","rect","gable","arch","gable","rect"];
+const D=R.map((r,i)=>({t:r[0],d:r[1],x:r[2],m:r[3],c:C[i],s:S[i%6],w:i%3!==1?1:0}));
+const app=document.getElementById('app'),rnd=()=>Math.random()-.5;let iv;
+const dh=o=>`<div class="dw ${o.s}"><div class="door ${o.s}" style="--c:${o.c}">${o.w?'<i class="win"></i>':''}</div></div>`;
+function home(){clearInterval(iv);
+app.innerHTML=`<h1>WHAT DOOR WILL WE KNOCK TODAY?</h1><div class="grid">${D.map((o,i)=>`<button class="cell" data-i="${i}">${dh(o)}<div class="line"></div><b>${i+1}</b></button>`).join('')}</div>`;
+app.querySelectorAll('.cell').forEach(c=>c.onclick=()=>{const w=c.querySelector('.dw');if(w.dataset.busy)return;w.dataset.busy=1;w.classList.add('knock');
+setTimeout(()=>w.classList.add('open'),550);setTimeout(()=>game(+c.dataset.i),1350)})}
+function game(i){clearInterval(iv);const o=D[i];
+app.innerHTML=`<div class="slide"><div class="left"><b class="num">${i+1}</b>${dh(o)}<div class="line"></div></div><section class="box"><h2>${o.t}</h2><p class="d">${o.d}</p><div id="g"></div></section></div>`;
+pr(document.getElementById('g'),o.x,o.m);window.scrollTo(0,0)}
+function pr(g,items,sec){const deck=[...items].sort(rnd);let k=0;const f=n=>Math.floor(n/60)+':'+String(n%60).padStart(2,'0');(function show(){clearInterval(iv);const it=deck[k++%deck.length];
+g.innerHTML=`<p class="big">${it}</p>${sec?'<div class="clock"></div>':''}<div class="row">${sec?'<button class="ic" id="go" aria-label="Start">▶</button>':''}<button class="ic alt" id="rr" aria-label="Next">↻</button></div>`;
+g.querySelector('#rr').onclick=show;
+if(sec){const ck=g.querySelector('.clock');ck.textContent=f(sec);g.querySelector('#go').onclick=()=>{clearInterval(iv);ck.classList.remove('out');let n=sec;ck.textContent=f(n);iv=setInterval(()=>{n--;ck.textContent=f(n);if(n<=0){clearInterval(iv);ck.classList.add('out')}},1000)}}})()}
+const ov=document.getElementById('ov');
+document.getElementById('info').onclick=()=>ov.hidden=false;
+ov.onclick=e=>{if(e.target===ov||e.target.id==='x')ov.hidden=true};
+document.onkeydown=e=>{if(e.key==='Escape')ov.hidden=true};
+document.getElementById('home').onclick=home;home();
+</script>
+</body>
+</html>
